@@ -30,7 +30,8 @@ function App() {
 
   return (
     <div className="App">
-      <ReactLoader loaded={false} options={options} className="loader" />
+      {/* <ToastContainer></ToastContainer> */}
+      <ReactLoader loaded={true} options={options} className="loader" />
       <Nav />
       <Banner />
       <Row title="NETFLIX ORIGINALS" fetchUrl={requests.fetchNetflixOriginals} isLargeRow></Row>

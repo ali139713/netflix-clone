@@ -2,6 +2,7 @@ import movieTrailer from 'movie-trailer';
 import React, { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 import instance from '../apiService';
+import notificationSvc from './notificationService';
 import './Row.css';
 
 const base_url = 'https://image.tmdb.org/t/p/original/';
@@ -23,6 +24,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
     else
       movieTrailer(movie?.name || '')
         .then((url) => {
+          if (url === null) notificationSvc.error('Preview Not Available.');
           const urlParams = new URLSearchParams(new URL(url).search);
           setTrailerUrl(urlParams.get('v'));
         })
