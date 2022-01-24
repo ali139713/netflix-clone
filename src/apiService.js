@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useLoader } from './Context/context';
+import spinnerSvc from './spinnerSvc';
 
 const instance = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
@@ -8,8 +8,7 @@ const instance = axios.create({
 axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    const { setLoading } = useLoader();
-    setLoading(true);
+    spinnerSvc.start();
     return config;
   },
   function (error) {
@@ -23,8 +22,7 @@ axios.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    const { setLoading } = useLoader();
-    setLoading(false);
+    spinnerSvc.stop();
     return response;
   },
   function (error) {
